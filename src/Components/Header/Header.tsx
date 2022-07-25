@@ -33,7 +33,7 @@ const Header = (props: Props) => {
         }}
       >
         <IconButton sx={{ p: 0 }}>
-          <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+          <Avatar src="https://i.pravatar.cc" alt="https://i.pravatar.cc" />
         </IconButton>
         <Typography
           fontSize="0.9rem"
