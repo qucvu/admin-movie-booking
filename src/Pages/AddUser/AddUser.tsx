@@ -23,7 +23,7 @@ import schemaUser from "./schemaAddUser";
 import { UserRegister } from "Interfaces/User";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
-import { addUser } from "Slices/UserSlice";
+import { addUser } from "Slices/userSlice";
 import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
 import SweetAlertError from "Components/SweetAlert/SweetAlertError";
 type Props = {};
@@ -51,8 +51,8 @@ const AddUser = (props: Props) => {
   const [errorModal, setErrorModal] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
-  const { errorRegister, isLoading } = useSelector(
-    (state: RootState) => state.user
+  const { errorRegister, isUserLoading } = useSelector(
+    (state: RootState) => state.userSlice
   );
   const handleChangeGroup = (event: SelectChangeEvent) => {
     setGroup(event.target.value as string);
@@ -238,7 +238,7 @@ const AddUser = (props: Props) => {
             type="submit"
             sx={{ width: "12rem", height: "3rem", overflow: "hidden" }}
           >
-            {isLoading ? (
+            {isUserLoading ? (
               <CircularProgress color="inherit" />
             ) : (
               "Thêm người dùng"

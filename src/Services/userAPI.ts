@@ -14,6 +14,27 @@ const userAPI = {
       userRegister
     );
   },
+  getUserList: (tuKhoa?: string) => {
+    return axiosClient.get<User[]>(`QuanLyNguoiDung/LayDanhSachNguoiDung`, {
+      params: {
+        tuKhoa: tuKhoa,
+      },
+    });
+  },
+  getUserInfo: (taiKhoan: string) => {
+    return axiosClient.post<User>(`QuanLyNguoiDung/LayThongTinNguoiDung`, {
+      params: {
+        taiKhoan: taiKhoan,
+      },
+    });
+  },
+  deleteUser: (TaiKhoan: string) => {
+    return axiosClient.delete(`QuanLyNguoiDung/XoaNguoiDung`, {
+      params: {
+        TaiKhoan: TaiKhoan,
+      },
+    });
+  },
 };
 
 export default userAPI;
