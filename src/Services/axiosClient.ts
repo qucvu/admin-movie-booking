@@ -13,7 +13,7 @@ axiosClient.interceptors.request.use((config) => {
   if (config.headers) {
     const { accessToken = "" } = (store.getState().auth.user as any) || {};
     if (accessToken) {
-      config.headers.accessToken = `Bearer ${accessToken}`;
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
   }
 

@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AxiosError } from "axios";
 import { LoginValues } from "Interfaces/Login";
 import { RegisterValues } from "Interfaces/Register";
 
