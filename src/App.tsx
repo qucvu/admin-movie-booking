@@ -1,8 +1,4 @@
 import { lazy, Suspense } from "react";
-// import "@fontsource/roboto/300.css";
-// import "@fontsource/roboto/400.css";
-// import "@fontsource/roboto/500.css";
-// import "@fontsource/roboto/700.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ErrorBoundary from "Components/ErrorBoundary/ErrorBoundary";
 import LoadingLazy from "Components/LoadingLazy/LoadingLazy";
@@ -28,7 +24,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route
-              path=""
+              path="/"
               element={
                 <ProtectedRoute>
                   <HomeTemplate />
@@ -39,13 +35,13 @@ function App() {
               <Route path="user-management" element={<UserMangement />} />
               <Route path="add-movie" element={<AddMovie />} />
               <Route path="add-user" element={<AddUser />} />
+
               <Route path="add-showtimes" element={<AddShowTimes />} />
             </Route>
             <Route path="form" element={<FormTemplate />}>
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
             </Route>
-
             <Route
               path="checkout"
               element={

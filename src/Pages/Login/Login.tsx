@@ -1,13 +1,9 @@
-import styled from "@emotion/styled";
 import {
   Avatar,
   Button,
   TextField,
   FormControlLabel,
   Checkbox,
-  Link,
-  Grid,
-  Box,
   Typography,
   Container,
   InputAdornment,
@@ -15,31 +11,20 @@ import {
   Alert,
   CircularProgress,
 } from "@mui/material";
-// import { makeStyles } from "@mui/styles";
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { LoginValues } from "Interfaces/Login";
 import { FieldErrors, useForm } from "react-hook-form";
 import { schemaLogin } from "./schemaLogin";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { loginUser } from "Slices/auth";
+import { loginUser, logoutUser } from "Slices/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
 import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
 import { makeStyles } from "@mui/styles";
-
-// const BoxLogin = styled.div`
-//   background-color: #fff;
-//   padding: 2rem;
-//   border-radius: 8px;
-// `;
-
-// const Form = styled.form`
-//   display: flex;
-//   flex-direction: column;
-// `;
+import SweetAlertError from "Components/SweetAlert/SweetAlertError";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -88,7 +73,11 @@ const Login = (): JSX.Element => {
   const classes = useStyles();
   const dispatch = useDispatch<AppDispatch>();
   const [modalOpen, setModalOpen] = useState(false);
-  const { errorLogin, isLoading } = useSelector(
+  const [modalError, setModalError] = useState(false);
+  const isMounted = useRef(false);
+  const navigate = useNavigate();
+
+  const { errorLogin, isLoading, user } = useSelector(
     (state: RootState) => state.auth
   );
   const [showPassword, setShowPassword] = useState(false);
@@ -107,7 +96,6 @@ const Login = (): JSX.Element => {
   const onSuccess = async (values: LoginValues) => {
     try {
       await dispatch(loginUser(values)).unwrap();
-      setModalOpen(true);
     } catch (error) {
       console.log(error);
     }
@@ -117,8 +105,33 @@ const Login = (): JSX.Element => {
     console.log(error);
   };
 
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
+
+    if (user?.maLoaiNguoiDung === "QuanTri") {
+      setModalOpen(true);
+    }
+    if (user && user?.maLoaiNguoiDung !== "QuanTri") setModalError(true);
+  }, [user]);
+
+  useEffect(() => {
+    if (user?.maLoaiNguoiDung === "QuanTri") {
+      navigate(-1);
+    }
+  }, []);
   return (
     <Container component="main" maxWidth="sm">
+      <SweetAlertError
+        show={modalError}
+        title="Tài khoản của bạn không có quyền thay đổi"
+        callbackClose={() => {
+          dispatch(logoutUser());
+          setModalError(false);
+        }}
+      />
       <SweetAlertSuccess show={modalOpen} navigateDestination={"-1"} />;
       <div className={classes.paper}>
         <Avatar sx={{ margin: "0.5rem", backgroundColor: "#e71a0f" }}></Avatar>
@@ -211,18 +224,6 @@ const Login = (): JSX.Element => {
           >
             {isLoading ? <CircularProgress color="inherit" /> : "ĐĂNG NHẬP"}
           </Button>
-          {/* <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Quên mật khẩu?
-              </Link>
-            </Grid>
-            <Grid item>
-              <NavLink to={"/form/register"} className={classes.navLink}>
-                {"Bạn chưa có tài khoản? Đăng kí"}
-              </NavLink>
-            </Grid>
-          </Grid> */}
         </form>
       </div>
     </Container>

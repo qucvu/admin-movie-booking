@@ -1,5 +1,5 @@
 import { forwardRef, Fragment, useState } from "react";
-import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -7,13 +7,8 @@ import MuiDrawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import {
-  styled,
-  useTheme,
-  Theme,
-  CSSObject,
-  createStyles,
-} from "@mui/material/styles";
+import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
+import { createStyles } from "@mui/styles";
 import { makeStyles } from "@mui/styles";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import { v4 } from "uuid";
@@ -25,7 +20,6 @@ import MoreTimeIcon from "@mui/icons-material/MoreTime";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 import {
-  Avatar,
   List,
   ListItem,
   ListItemButton,
@@ -40,7 +34,6 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "configStore";
 import { logoutUser } from "Slices/auth";
 import Header from "Components/Header/Header";
-type Props = {};
 const drawerWidth = 260;
 const DrawerTitles = [
   {
@@ -156,7 +149,7 @@ const useStyles: any = makeStyles((theme: Theme) =>
     },
   })
 );
-const HomeTemplate = (props: any) => {
+const HomeTemplate = () => {
   const classes = useStyles();
   const [showModal, setShowModal] = useState(false);
   const MyNavLink = forwardRef<any, any>((props, ref) => (

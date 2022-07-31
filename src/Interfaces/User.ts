@@ -15,4 +15,5 @@ export interface UserRegister {
   soDt: string;
   maNhom: string;
   hoTen: string;
+  maLoaiNguoiDung: string;
 }

@@ -3,11 +3,12 @@ import SweetAlert2 from "react-sweetalert2";
 
 type Props = {
   show: boolean;
-  title?: string;
+  title?: string | null;
   text?: string;
+  callbackClose?: () => void;
 };
 
-const SweetAlertError = ({ show, title, text }: Props) => {
+const SweetAlertError = ({ show, title, text, callbackClose }: Props) => {
   const [swalProps, setSwalProps] = useState({});
   useEffect(() => {
     setSwalProps({
@@ -19,8 +20,8 @@ const SweetAlertError = ({ show, title, text }: Props) => {
       showConfirmButton: true,
       timer: 3000,
     });
-  }, [show]);
-  return <SweetAlert2 {...swalProps} />;
+  }, [show, title, text]);
+  return <SweetAlert2 {...swalProps} didClose={callbackClose} />;
 };
 
 export default SweetAlertError;

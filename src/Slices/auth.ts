@@ -1,14 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { LoginValues } from "Interfaces/Login";
-import { RegisterValues } from "Interfaces/Register";
 
-import { User, UserRegister } from "Interfaces/User";
+import { User } from "Interfaces/User";
 import UserAPI from "Services/userAPI";
 
 interface State {
   user: User | null;
-  registerValues: UserRegister | null;
   isLoading: boolean;
   errorLogin: string | null;
   errorRegister: string | null;
@@ -18,7 +16,6 @@ const initialState: State = {
   isLoading: false,
   errorLogin: null,
   errorRegister: null,
-  registerValues: null,
 };
 
 export const loginUser = createAsyncThunk(
@@ -27,18 +24,6 @@ export const loginUser = createAsyncThunk(
     try {
       const data = await UserAPI.getUser(loginValues);
       localStorage.setItem("user", JSON.stringify(data));
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
-  }
-);
-
-export const registerUser = createAsyncThunk(
-  "auth/register",
-  async (RegisterValues: RegisterValues, { rejectWithValue }) => {
-    try {
-      const data = await UserAPI.postRegisterUser(RegisterValues);
       return data;
     } catch (error) {
       return rejectWithValue(error);
@@ -68,21 +53,6 @@ const authSlice = createSlice({
       state.isLoading = false;
       if (typeof payload === "string") {
         state.errorLogin = payload;
-      }
-    });
-
-    builder.addCase(registerUser.fulfilled, (state, { payload }) => {
-      state.registerValues = payload;
-      state.isLoading = false;
-      state.errorRegister = null;
-    });
-    builder.addCase(registerUser.pending, (state, { payload }) => {
-      state.isLoading = true;
-    });
-    builder.addCase(registerUser.rejected, (state, { payload }) => {
-      state.isLoading = false;
-      if (typeof payload === "string") {
-        state.errorRegister = payload;
       }
     });
   },

@@ -8,8 +8,8 @@ type Props = {
 
 const ProtectedRoute = ({ children }: Props) => {
   const { user } = useSelector((state: RootState) => state.auth);
-  // if (!user || user.maLoaiNguoiDung === "KhachHang") {
-  if (!user) {
+  if (!user || user.maLoaiNguoiDung !== "QuanTri") {
+    // if (!user) {
     return <Navigate to={"/form/login"} />;
   }
   return children;
