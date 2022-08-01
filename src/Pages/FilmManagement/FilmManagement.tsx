@@ -26,13 +26,13 @@ type Order = "asc" | "desc";
 
 const FilmManagement = (props: Props) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { movieList, isMovieList } = useSelector(
+  const { movieList, isMovieList, searchList } = useSelector(
     (state: RootState) => state.movieSlice
   );
+  let _movieList: Movie[] | null = [];
 
   useEffect(() => {
     dispatch(getMovieList());
-
     return () => {};
   }, [dispatch]);
   const [order, setOrder] = useState<Order>("asc");
@@ -42,6 +42,9 @@ const FilmManagement = (props: Props) => {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  if (searchList.length) {
+    _movieList = searchList;
+  } else _movieList = movieList;
   if (isMovieList) {
     return <LoadingLazy />;
   }
@@ -57,7 +60,7 @@ const FilmManagement = (props: Props) => {
 
   const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = movieList?.map((n) => {
+      const newSelecteds = _movieList?.map((n: Movie) => {
         return n.maPhim;
       });
       setSelected(newSelecteds as string[]);
@@ -100,61 +103,60 @@ const FilmManagement = (props: Props) => {
   };
 
   return (
-    <Box>
-      <Container>
-        <Box component={"h1"} sx={{ textAlign: "center" }}>
-          Quản lý phim
-        </Box>
+    <Container>
+      <Box component={"h1"} sx={{ textAlign: "center" }}>
+        Quản lý phim
+      </Box>
 
-        <Box sx={{ width: "100%" }}>
-          <Paper sx={{ width: "100%", mb: 2 }}>
-            <EnhancedTableToolbar
-              numSelected={selected.length}
-              selected={selected}
-            />
-            <TableContainer>
-              <Table
-                sx={{ minWidth: 750 }}
-                aria-labelledby="tableTitle"
-                size={dense ? "small" : "medium"}
-              >
-                <EnhancedTableHead
-                  numSelected={selected.length}
-                  order={order}
-                  orderBy={orderBy}
-                  onSelectAllClick={handleSelectAllClick}
-                  onRequestSort={handleRequestSort}
-                  rowCount={movieList?.length}
-                />
-                <EnhancedTableBody
-                  dense={dense}
-                  movieList={movieList}
-                  rowsPerPage={rowsPerPage}
-                  page={page}
-                  selected={selected}
-                  order={order}
-                  orderBy={orderBy}
-                  handleClick={handleClick}
-                />
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={movieList?.length || 0}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </Paper>
-          <FormControlLabel
-            control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
+      <Box sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <EnhancedTableToolbar
+            numSelected={selected.length}
+            selected={selected}
           />
-        </Box>
-      </Container>
-    </Box>
+          <TableContainer>
+            <Table
+              // sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={handleSelectAllClick}
+                onRequestSort={handleRequestSort}
+                rowCount={_movieList?.length}
+              />
+              <EnhancedTableBody
+                dense={dense}
+                movieList={_movieList}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                selected={selected}
+                order={order}
+                orderBy={orderBy}
+                handleClick={handleClick}
+              />
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={_movieList?.length || 0}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            labelRowsPerPage=""
+          />
+        </Paper>
+        <FormControlLabel
+          control={<Switch checked={dense} onChange={handleChangeDense} />}
+          label="Rút gọn"
+        />
+      </Box>
+    </Container>
   );
 };
 
