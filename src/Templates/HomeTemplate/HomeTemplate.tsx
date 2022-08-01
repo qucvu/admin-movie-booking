@@ -178,7 +178,7 @@ const HomeTemplate = () => {
   const handleConfirmLogout = () => {
     dispatch(logoutUser());
   };
-  console.log("re-render");
+
   return (
     <Fragment>
       <SweetAlertConfirm

@@ -84,9 +84,24 @@ const EnhancedTableBody = (props: Props) => {
                 {row.taiKhoan}
               </TableCell>
               <TableCell align="right">{row.hoTen}</TableCell>
-              <TableCell align="right">{row.email}</TableCell>
-              <TableCell align="right">{row.soDT}</TableCell>
-              <TableCell align="right">{row.maLoaiNguoiDung}</TableCell>
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", md: "table-cell" } }}
+              >
+                {row.email}
+              </TableCell>
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", md: "table-cell" } }}
+              >
+                {row.soDT}
+              </TableCell>
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", sm: "table-cell" } }}
+              >
+                {row.maLoaiNguoiDung}
+              </TableCell>
             </TableRow>
           );
         })}

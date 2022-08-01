@@ -100,16 +100,28 @@ const EnhancedTableBody = (props: Props) => {
                 {row.maPhim}
               </TableCell>
               <TableCell align="right">{row.tenPhim}</TableCell>
-              <TableCell align="right">
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", md: "table-cell" } }}
+              >
                 <Checkbox defaultChecked={row.hot} disabled />
               </TableCell>
-              <TableCell align="right">
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", md: "table-cell" } }}
+              >
                 <Checkbox defaultChecked={row.dangChieu} disabled />
               </TableCell>
-              <TableCell align="right">
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", md: "table-cell" } }}
+              >
                 <Checkbox defaultChecked={row.sapChieu} disabled />
               </TableCell>
-              <TableCell align="right">
+              <TableCell
+                align="right"
+                sx={{ display: { xs: "none", sm: "table-cell" } }}
+              >
                 {formatDay(row.ngayKhoiChieu)}~{formatTime(row.ngayKhoiChieu)}
               </TableCell>
               <TableCell align="center">
@@ -118,6 +130,7 @@ const EnhancedTableBody = (props: Props) => {
                     variant="contained"
                     size="small"
                     onClick={() => navigate(`/detail/${row.maPhim}`)}
+                    sx={{ fontSize: { xs: "0.7rem", md: "0.8rem" } }}
                   >
                     Chi tiết
                   </Button>

@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { visuallyHidden } from "@mui/utils";
-import { MouseEvent, ChangeEvent } from "react";
+import { MouseEvent, ChangeEvent, useEffect, useState } from "react";
 import { User } from "Interfaces/User";
 
 type Order = "asc" | "desc";
@@ -19,6 +19,41 @@ interface HeadCell {
   numeric: boolean;
 }
 const headCells: readonly HeadCell[] = [
+  {
+    id: "taiKhoan",
+    numeric: false,
+    disablePadding: true,
+    label: "Tài khoản",
+  },
+  {
+    id: "hoTen",
+    numeric: true,
+    disablePadding: false,
+    label: "Họ tên",
+  },
+];
+const smHeadCells: readonly HeadCell[] = [
+  {
+    id: "taiKhoan",
+    numeric: false,
+    disablePadding: true,
+    label: "Tài khoản",
+  },
+  {
+    id: "hoTen",
+    numeric: true,
+    disablePadding: false,
+    label: "Họ tên",
+  },
+  {
+    id: "maLoaiNguoiDung",
+    numeric: true,
+    disablePadding: false,
+    label: "Loại người dùng",
+  },
+];
+
+const mdHeadCells: readonly HeadCell[] = [
   {
     id: "taiKhoan",
     numeric: false,
@@ -73,6 +108,14 @@ const EnhancedTableHead = (props: Props) => {
       onRequestSort(event, property);
     };
 
+  const [screenWidth, setSreenWidth] = useState<number>(window.innerWidth);
+  window.onresize = function (event) {
+    setSreenWidth(window.innerWidth);
+  };
+  useEffect(() => {
+    return () => {};
+  }, [screenWidth]);
+
   return (
     <TableHead sx={{ bgcolor: "#d9f89e" }}>
       <TableRow>
@@ -87,27 +130,77 @@ const EnhancedTableHead = (props: Props) => {
             }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
+        {screenWidth < 900
+          ? screenWidth < 600
+            ? headCells.map((headCell) => (
+                <TableCell
+                  key={headCell.id}
+                  align={headCell.numeric ? "right" : "left"}
+                  padding={headCell.disablePadding ? "none" : "normal"}
+                  sortDirection={orderBy === headCell.id ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === headCell.id}
+                    direction={orderBy === headCell.id ? order : "asc"}
+                    onClick={createSortHandler(headCell.id)}
+                  >
+                    {headCell.label}
+                    {orderBy === headCell.id ? (
+                      <Box component="span" sx={visuallyHidden}>
+                        {order === "desc"
+                          ? "sorted descending"
+                          : "sorted ascending"}
+                      </Box>
+                    ) : null}
+                  </TableSortLabel>
+                </TableCell>
+              ))
+            : smHeadCells.map((headCell) => (
+                <TableCell
+                  key={headCell.id}
+                  align={headCell.numeric ? "right" : "left"}
+                  padding={headCell.disablePadding ? "none" : "normal"}
+                  sortDirection={orderBy === headCell.id ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === headCell.id}
+                    direction={orderBy === headCell.id ? order : "asc"}
+                    onClick={createSortHandler(headCell.id)}
+                  >
+                    {headCell.label}
+                    {orderBy === headCell.id ? (
+                      <Box component="span" sx={visuallyHidden}>
+                        {order === "desc"
+                          ? "sorted descending"
+                          : "sorted ascending"}
+                      </Box>
+                    ) : null}
+                  </TableSortLabel>
+                </TableCell>
+              ))
+          : mdHeadCells.map((headCell) => (
+              <TableCell
+                key={headCell.id}
+                align={headCell.numeric ? "right" : "left"}
+                padding={headCell.disablePadding ? "none" : "normal"}
+                sortDirection={orderBy === headCell.id ? order : false}
+              >
+                <TableSortLabel
+                  active={orderBy === headCell.id}
+                  direction={orderBy === headCell.id ? order : "asc"}
+                  onClick={createSortHandler(headCell.id)}
+                >
+                  {headCell.label}
+                  {orderBy === headCell.id ? (
+                    <Box component="span" sx={visuallyHidden}>
+                      {order === "desc"
+                        ? "sorted descending"
+                        : "sorted ascending"}
+                    </Box>
+                  ) : null}
+                </TableSortLabel>
+              </TableCell>
+            ))}
         <TableCell align="center" padding="normal">
           <SettingsIcon />
         </TableCell>
