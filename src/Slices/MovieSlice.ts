@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { MovieAdd } from "Interfaces/Movie";
 import movieAPI from "Services/movieAPI";
 import { Movie } from "Interfaces/movieInterfaces";
 
