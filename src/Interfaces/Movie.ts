@@ -8,3 +8,10 @@ export interface MovieAdd {
   ngayKhoiChieu: string;
   danhGia: string;
 }
+
+export interface ShowTimeAdd {
+  maPhim: string;
+  ngayChieuGioChieu: string;
+  maRap: string;
+  giaVe: number;
+}

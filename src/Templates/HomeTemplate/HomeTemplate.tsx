@@ -287,8 +287,7 @@ const HomeTemplate = () => {
                 fontWeight: "bold",
                 margin: "0.5rem 0",
               }}
-              component={MyNavLink}
-              to={"/"}
+              component={Box}
             >
               <ListItemButton
                 sx={{
