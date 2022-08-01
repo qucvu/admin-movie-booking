@@ -34,7 +34,6 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
   });
 
   const onSubmit = (values: any) => {
-    console.log(values.searchText);
     dispatch(handleSearch(values.searchText));
   };
   const onError = () => {};
@@ -91,7 +90,7 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
             variant="subtitle1"
             component="div"
           >
-            {numSelected} selected
+            Đã chọn {numSelected}
           </Typography>
         ) : (
           <Typography

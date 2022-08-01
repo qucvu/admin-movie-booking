@@ -12,6 +12,7 @@ interface State {
   movieError: string | null;
   srcPreview: string;
   errorRegister: string | null;
+  searchList: Movie[];
 }
 const initialState: State = {
   movieList: null,
@@ -22,6 +23,7 @@ const initialState: State = {
   movieError: null,
   srcPreview: "",
   errorRegister: null,
+  searchList: [],
 };
 
 export const getMovieList = createAsyncThunk(
@@ -90,15 +92,12 @@ const movieSlice = createSlice({
       state.srcPreview = payload;
     },
     handleSearchMovie: (state, { payload }) => {
-      if (state.movieList) {
-        const temp: Movie[] = [];
-        state.movieList.map((movie: Movie) => {
+      if (payload !== "") {
+        state.movieList?.map((movie: Movie) => {
           if (movie.tenPhim.includes(payload) || movie.biDanh.includes(payload))
-            return temp.push(movie);
-          return undefined;
+            return state.searchList.push(movie);
         });
-        state.movieList = temp;
-      }
+      } else state.searchList = [];
     },
   },
   extraReducers: (builder) => {

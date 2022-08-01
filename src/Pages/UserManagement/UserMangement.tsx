@@ -38,8 +38,11 @@ const UserMangement = (props: Props) => {
   );
 
   useEffect(() => {
-    dispatch(getUserList(searchText));
-
+    if (searchText === "") {
+      dispatch(getUserList());
+    } else {
+      dispatch(getUserList(searchText));
+    }
     return () => {};
   }, [dispatch, searchText]);
 
@@ -114,7 +117,7 @@ const UserMangement = (props: Props) => {
             />
             <TableContainer>
               <Table
-                sx={{ minWidth: 750 }}
+                // sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
                 size={dense ? "small" : "medium"}
               >
@@ -146,11 +149,12 @@ const UserMangement = (props: Props) => {
               page={page}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
+              labelRowsPerPage=""
             />
           </Paper>
           <FormControlLabel
             control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
+            label="Rút gọn"
           />
         </Box>
       </Container>

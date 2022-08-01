@@ -35,6 +35,15 @@ const userAPI = {
       },
     });
   },
+  postUserInfo: () => {
+    return axiosClient.post(`QuanLyNguoiDung/ThongTinTaiKhoan`);
+  },
+  putUpdateUser: (payload: UserRegister, maNhom: string = "GP01") => {
+    return axiosClient.put(`QuanLyNguoiDung/CapNhatThongTinNguoiDung`, {
+      ...payload,
+      maNhom: maNhom,
+    });
+  },
 };
 
 export default userAPI;
