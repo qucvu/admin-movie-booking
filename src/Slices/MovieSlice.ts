@@ -98,7 +98,7 @@ const movieSlice = createSlice({
         const temp: Movie[] = [];
         state.movieList?.map((movie: Movie) => {
           state.searchList = temp;
-          if (movie.tenPhim.includes(payload)) {
+          if (movie.tenPhim.toLowerCase().includes(payload.toLowerCase())) {
             return state.searchList.push(movie);
           }
         });

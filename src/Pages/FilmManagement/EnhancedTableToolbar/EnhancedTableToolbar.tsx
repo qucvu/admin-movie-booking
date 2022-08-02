@@ -59,7 +59,6 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
     clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(() => {
-      console.log(event.target.value);
       dispatch(handleSearchMovie(event.target.value));
     }, 300);
   };
