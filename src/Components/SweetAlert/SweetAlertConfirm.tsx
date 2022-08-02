@@ -8,6 +8,7 @@ type Props = {
   callbackConfirm: () => void;
   callbackClose?: () => void;
   icon?: string;
+  showCancelButton?: boolean;
 };
 
 const SweetAlertConfirm = ({
@@ -17,6 +18,7 @@ const SweetAlertConfirm = ({
   callbackConfirm,
   callbackClose,
   icon = "question",
+  showCancelButton = true,
 }: Props) => {
   const [swalProps, setSwalProps] = useState({});
   useEffect(() => {
@@ -26,7 +28,7 @@ const SweetAlertConfirm = ({
       icon: icon,
       title: title,
       text: text,
-      showCancelButton: true,
+      showCancelButton: showCancelButton,
       confirmButtonColor: "#3085d6",
       confirmButtonText: "Đồng ý",
       cancelButtonText: "Hủy bỏ",

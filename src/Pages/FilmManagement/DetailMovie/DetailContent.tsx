@@ -16,7 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSrcPreview, updateMovie } from "Slices/movieSlice";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
-import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
+import schemaAddMovie from "Pages/AddMovies/schemaMovie";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SpanError } from "Pages/AddUser/AddUser";
+import SweetAlertConfirm from "Components/SweetAlert/SweetAlertConfirm";
 // import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 // import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 // import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
@@ -70,7 +73,7 @@ const DetailContent = (props: Props) => {
       hot: movie?.hot as boolean,
     },
     mode: "onTouched",
-    // resolver: yupResolver(schemaRegister),
+    resolver: yupResolver(schemaAddMovie),
   });
   const onSubmit = (values: any) => {
     Swal.fire({
@@ -98,22 +101,11 @@ const DetailContent = (props: Props) => {
             Swal.fire(res.error?.message, "", "info");
           } else setOpenSuccess(true);
         });
+        setIsReadOnly(true);
       } else if (result.isDenied) {
         setOpenSuccess(false);
       }
     });
-    let payload;
-    srcPreview
-      ? (payload = {
-          ...values,
-          hinhAnh: values.hinhAnh[0],
-          ngayKhoiChieu: dayjs(values.ngayKhoiChieu).format("DD/MM/YYYY"),
-        })
-      : (payload = {
-          ...values,
-        });
-    dispatch(updateMovie(payload));
-    setIsReadOnly(true);
   };
   const onError = () => {};
 
@@ -128,10 +120,14 @@ const DetailContent = (props: Props) => {
 
   return (
     <Box>
-      <SweetAlertSuccess
+      <SweetAlertConfirm
         show={openSuccess}
         title="Chỉnh sửa thành công!"
-        navigateDestination={"-1"}
+        callbackConfirm={() => {
+          setOpenSuccess(false);
+        }}
+        showCancelButton={false}
+        icon="success"
       />
       <Box
         component="form"
@@ -155,11 +151,13 @@ const DetailContent = (props: Props) => {
               id="tenPhim"
               label="Tên phim"
               variant="outlined"
+              required
               {...register("tenPhim")}
               InputProps={{
                 readOnly: isReadOnly,
               }}
             />
+            {errors.tenPhim && <SpanError>{errors.tenPhim.message}</SpanError>}
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -167,9 +165,10 @@ const DetailContent = (props: Props) => {
               id="biDanh"
               label="Bí danh"
               variant="outlined"
+              required
               {...register("biDanh")}
               InputProps={{
-                readOnly: isReadOnly,
+                readOnly: true,
               }}
             />
           </Grid>
@@ -179,11 +178,16 @@ const DetailContent = (props: Props) => {
               id="ngayKhoiChieu"
               label="Ngày khởi chiếu"
               variant="outlined"
+              required
               {...register("ngayKhoiChieu")}
               InputProps={{
                 readOnly: isReadOnly,
               }}
+              // type="date"
             />
+            {errors.ngayKhoiChieu && (
+              <SpanError>{errors.ngayKhoiChieu.message}</SpanError>
+            )}
             {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DateTimePicker
         renderInput={(props) => <TextField {...props} />}
@@ -201,6 +205,7 @@ const DetailContent = (props: Props) => {
               id="hinhAnh"
               label="Hình ảnh"
               variant="outlined"
+              required
               defaultValue={movie?.hinhAnh}
               sx={{ "&>*": { pr: 4 } }}
               InputProps={{
@@ -226,6 +231,7 @@ const DetailContent = (props: Props) => {
               />
               <PhotoCamera />
             </IconButton>
+            {errors.hinhAnh && <SpanError>{errors.hinhAnh.message}</SpanError>}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -233,11 +239,13 @@ const DetailContent = (props: Props) => {
               id="trailer"
               label="Trailer"
               variant="outlined"
+              required
               {...register("trailer")}
               InputProps={{
                 readOnly: isReadOnly,
               }}
             />
+            {errors.trailer && <SpanError>{errors.trailer.message}</SpanError>}
           </Grid>
           <Grid item xs={12}>
             <TextField
@@ -245,11 +253,13 @@ const DetailContent = (props: Props) => {
               id="danhGia"
               label="Đánh giá"
               variant="outlined"
+              required
               {...register("danhGia")}
               InputProps={{
                 readOnly: isReadOnly,
               }}
             />
+            {errors.danhGia && <SpanError>{errors.danhGia.message}</SpanError>}
           </Grid>
           <Grid item xs={12}>
             <TextField

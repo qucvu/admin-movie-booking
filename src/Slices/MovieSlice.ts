@@ -12,7 +12,8 @@ interface State {
   movieError: string | null;
   srcPreview: string;
   errorRegister: string | null;
-  searchList: Movie[];
+  searchList: Movie[] | null;
+  searchText: string;
 }
 const initialState: State = {
   movieList: null,
@@ -23,7 +24,8 @@ const initialState: State = {
   movieError: null,
   srcPreview: "",
   errorRegister: null,
-  searchList: [],
+  searchList: null,
+  searchText: "",
 };
 
 export const getMovieList = createAsyncThunk(
@@ -92,10 +94,14 @@ const movieSlice = createSlice({
       state.srcPreview = payload;
     },
     handleSearchMovie: (state, { payload }) => {
+      state.searchText = payload;
       if (payload !== "") {
+        const temp: Movie[] = [];
         state.movieList?.map((movie: Movie) => {
-          if (movie.tenPhim.includes(payload) || movie.biDanh.includes(payload))
+          state.searchList = temp;
+          if (movie.tenPhim.includes(payload)) {
             return state.searchList.push(movie);
+          }
         });
       } else state.searchList = [];
     },
@@ -107,6 +113,10 @@ const movieSlice = createSlice({
     builder.addCase(getMovieList.fulfilled, (state, { payload }) => {
       state.movieList = payload;
       state.isMovieList = false;
+    });
+    builder.addCase(getMovieList.rejected, (state, { error }) => {
+      state.isMovieList = false;
+      if (typeof error === "string") state.movieListError = error;
     });
     //---------------------------------------------------
     builder.addCase(getMovieInfo.pending, (state) => {
@@ -120,6 +130,7 @@ const movieSlice = createSlice({
       state.isMovieLoading = false;
       state.movieError = error as any;
     });
+    //---------------------------------------------------
     builder.addCase(addMovie.fulfilled, (state, { payload }) => {
       state.movie = payload;
       state.isMovieLoading = false;

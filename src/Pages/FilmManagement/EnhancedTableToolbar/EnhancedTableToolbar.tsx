@@ -15,7 +15,7 @@ import { AppDispatch } from "configStore";
 import { deleteMovie, handleSearchMovie } from "Slices/movieSlice";
 import Swal from "sweetalert2";
 import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
-import { useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { useForm } from "react-hook-form";
 
@@ -52,6 +52,16 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
         setOpenSuccess(true);
       }
     });
+  };
+
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const handleSearchText = (event: ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = setTimeout(() => {
+      console.log(event.target.value);
+      dispatch(handleSearchMovie(event.target.value));
+    }, 300);
   };
   return (
     <Box>
@@ -104,7 +114,11 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search Users"
-            {...register("searchText")}
+            {...register("searchText", {
+              onChange: (event: ChangeEvent<HTMLInputElement>) => {
+                handleSearchText(event);
+              },
+            })}
           />
           <IconButton sx={{ p: "10px" }} type="submit">
             <SearchIcon />

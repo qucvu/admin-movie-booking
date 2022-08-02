@@ -46,9 +46,9 @@ const UserMangement = (props: Props) => {
     return () => {};
   }, [dispatch, searchText]);
 
-  if (isUserListLoading) {
-    return <LoadingLazy />;
-  }
+  // if (isUserListLoading) {
+  //   return <LoadingLazy />;
+  // }
 
   const handleRequestSort = (
     event: MouseEvent<unknown>,

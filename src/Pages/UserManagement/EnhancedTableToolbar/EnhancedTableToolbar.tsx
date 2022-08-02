@@ -15,7 +15,7 @@ import { AppDispatch } from "configStore";
 import { deleteUser, handleSearch } from "Slices/userSlice";
 import Swal from "sweetalert2";
 import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
-import { useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { useForm } from "react-hook-form";
 
@@ -23,7 +23,6 @@ type Props = { numSelected: number; selected: string[] };
 
 const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
   const [openSuccess, setOpenSuccess] = useState(false);
-
   const dispatch = useDispatch<AppDispatch>();
 
   const { register, handleSubmit } = useForm({
@@ -32,6 +31,12 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
     },
     mode: "onSubmit",
   });
+
+  useEffect(() => {
+    dispatch(handleSearch(""));
+
+    return () => {};
+  }, [dispatch]);
 
   const onSubmit = (values: any) => {
     dispatch(handleSearch(values.searchText));
@@ -51,7 +56,6 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
       if (result.isConfirmed) {
         selected.map((taiKhoan) =>
           dispatch(deleteUser(taiKhoan)).then((res: any) => {
-            console.log(res);
             if (res.error?.message) {
               Swal.fire(res.error?.message, "", "info");
             } else setOpenSuccess(true);
@@ -62,6 +66,15 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
       }
     });
   };
+
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const handleSearchText = (event: ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      dispatch(handleSearch(event.target.value));
+    }, 300);
+  };
+
   return (
     <Box>
       <SweetAlertSuccess
@@ -113,7 +126,11 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
           <InputBase
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search Users"
-            {...register("searchText")}
+            {...register("searchText", {
+              onChange: (event: ChangeEvent<HTMLInputElement>) => {
+                handleSearchText(event);
+              },
+            })}
           />
           <IconButton sx={{ p: "10px" }} type="submit">
             <SearchIcon />
