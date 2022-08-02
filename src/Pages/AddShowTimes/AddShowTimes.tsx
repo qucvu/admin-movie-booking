@@ -102,6 +102,7 @@ const AddShowTimes = () => {
     }
     dispatch(getCinemaInfo(valueInput.maHeThongRap));
     setValueInput({ ...valueInput, maCumRap: "", maRap: "" });
+    setValue("maRap", "");
   }, [valueInput.maHeThongRap]);
 
   useEffect(() => {
@@ -110,9 +111,12 @@ const AddShowTimes = () => {
       (item) => item.maCumRap === valueInput.maCumRap
     );
     setTheaterList(listTheater?.danhSachRap as TheaterList[]);
+    setValue("maRap", "");
   }, [valueInput.maCumRap]);
 
   const onValid = async (values: ShowTimeAdd) => {
+    console.log(values);
+
     const payload = {
       ...values,
       ngayChieuGioChieu: dayjs(values.ngayChieuGioChieu).format(
@@ -121,7 +125,6 @@ const AddShowTimes = () => {
       maRap: valueInput.maCumRap,
     };
     console.log(payload);
-
     try {
       await dispatch(addShowTimeCinema(payload)).unwrap();
       setModalSuccess(true);
@@ -249,10 +252,7 @@ const AddShowTimes = () => {
                 label="Chọn cụm rạp"
                 value={valueInput.maCumRap}
                 name="maCumRap"
-                onChange={(e) => {
-                  handleChangeSelect(e);
-                  setValue("maRap", "");
-                }}
+                onChange={handleChangeSelect}
               >
                 {valueInput.maHeThongRap ? (
                   cinemaInfo.map((item) => (
@@ -277,6 +277,11 @@ const AddShowTimes = () => {
                 {...register("maRap", {
                   onChange: handleChangeSelect,
                 })}
+                MenuProps={{
+                  sx: {
+                    maxHeight: "15rem",
+                  },
+                }}
               >
                 {valueInput.maCumRap ? (
                   theaterList?.map((item) => (
