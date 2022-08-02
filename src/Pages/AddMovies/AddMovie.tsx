@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   FormControl,
   Grid,
@@ -37,7 +38,9 @@ const AddMovie = (props: Props) => {
   };
   const [modalSuccess, setModalSuccess] = useState(false);
   const [modalError, setmodalError] = useState(false);
-  const { errorRegister } = useSelector((state: RootState) => state.movieSlice);
+  const { errorRegister, isMovieLoading } = useSelector(
+    (state: RootState) => state.movieSlice
+  );
 
   const {
     register,
@@ -180,9 +183,16 @@ const AddMovie = (props: Props) => {
         {errors.moTa && <SpanError>{errors.moTa.message}</SpanError>}
 
         <Box width={"100%"} textAlign="center" mt={3}>
-          <Button variant="contained" type="submit">
-            {/* {isLoading ? <CircularProgress color="inherit" /> : "ĐĂNG NHẬP"} */}
-            Thêm phim
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ width: "10rem", height: "3rem", overflow: "hidden" }}
+          >
+            {isMovieLoading ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              "Thêm phim"
+            )}
           </Button>
         </Box>
       </form>

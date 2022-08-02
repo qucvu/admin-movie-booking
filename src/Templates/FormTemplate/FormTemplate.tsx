@@ -1,8 +1,5 @@
 import styled from "@emotion/styled";
-import { Box } from "@mui/material";
 import Logo from "Components/Logo/Logo";
-import Login from "Pages/Login/Login";
-import { relative } from "path";
 import { Link, Outlet } from "react-router-dom";
 
 const Template = styled.div`
