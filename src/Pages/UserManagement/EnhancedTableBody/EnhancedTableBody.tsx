@@ -1,6 +1,14 @@
-import { TableBody, TableRow, TableCell, Checkbox } from "@mui/material";
+import {
+  TableBody,
+  TableRow,
+  TableCell,
+  Checkbox,
+  Stack,
+  Button,
+} from "@mui/material";
 import { MouseEvent } from "react";
 import { User } from "Interfaces/User";
+import { useNavigate } from "react-router-dom";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -52,6 +60,8 @@ const EnhancedTableBody = (props: Props) => {
     selected.indexOf(name as string) !== -1;
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userList!.length) : 0;
+  const navigate = useNavigate();
+
   return (
     <TableBody>
       {userList
@@ -101,6 +111,18 @@ const EnhancedTableBody = (props: Props) => {
                 sx={{ display: { xs: "none", sm: "table-cell" } }}
               >
                 {row.maLoaiNguoiDung}
+              </TableCell>
+              <TableCell align="center">
+                <Stack>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => navigate(`/detail/user/${row.taiKhoan}`)}
+                    sx={{ fontSize: { xs: "0.7rem", md: "0.8rem" } }}
+                  >
+                    Chi tiết
+                  </Button>
+                </Stack>
               </TableCell>
             </TableRow>
           );
