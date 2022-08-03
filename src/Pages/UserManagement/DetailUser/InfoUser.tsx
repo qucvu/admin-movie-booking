@@ -192,10 +192,10 @@ const InfoUser = (props: Props) => {
         )}
 
         <TextField
-          id="outlined-select-currency"
+          id="maLoaiNguoiDung"
           margin="dense"
           select
-          label="Select"
+          label="Người dùng"
           value={currentValue}
           {...register("maLoaiNguoiDung", {
             onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -225,7 +225,7 @@ const InfoUser = (props: Props) => {
           color={errors.matKhau && "warning"}
           {...register("matKhau")}
           InputProps={{
-            readOnly: readOnly,
+            readOnly: true,
             endAdornment: (
               <InputAdornment position="end">
                 <IconButton
