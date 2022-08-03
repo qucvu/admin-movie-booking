@@ -15,7 +15,6 @@ import { getUserList } from "Slices/userSlice";
 
 import EnhancedTableToolbar from "./EnhancedTableToolbar/EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead/EnhancedTableHead";
-import LoadingLazy from "Components/LoadingLazy/LoadingLazy";
 
 import { User } from "Interfaces/User";
 
@@ -33,7 +32,7 @@ const UserMangement = (props: Props) => {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const dispatch = useDispatch<AppDispatch>();
-  const { userList, isUserListLoading, searchText } = useSelector(
+  const { userList, searchText } = useSelector(
     (state: RootState) => state.userSlice
   );
 
@@ -46,9 +45,9 @@ const UserMangement = (props: Props) => {
     return () => {};
   }, [dispatch, searchText]);
 
-  if (isUserListLoading) {
-    return <LoadingLazy />;
-  }
+  // if (isUserListLoading) {
+  //   return <LoadingLazy />;
+  // }
 
   const handleRequestSort = (
     event: MouseEvent<unknown>,

@@ -18,6 +18,9 @@ const Login = lazy(() => import("Pages/Login/Login"));
 const DetailMovie = lazy(
   () => import("Pages/FilmManagement/DetailMovie/DetailMovie")
 );
+const DetailUser = lazy(
+  () => import("Pages/UserManagement/DetailUser/DetailUser")
+);
 
 function App() {
   return (
@@ -34,7 +37,8 @@ function App() {
               }
             >
               <Route index element={<FilmManagement />} />
-              <Route path="detail/:movieId" element={<DetailMovie />} />
+              <Route path="detail/movie/:movieId" element={<DetailMovie />} />
+              <Route path="detail/user/:userId" element={<DetailUser />} />
 
               <Route path="user-management" element={<UserMangement />} />
               <Route path="add-movie" element={<AddMovie />} />

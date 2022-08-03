@@ -11,7 +11,6 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
-  Typography,
 } from "@mui/material";
 import { AppDispatch, RootState } from "configStore";
 import { useEffect, useRef, useState } from "react";
@@ -87,7 +86,7 @@ const AddShowTimes = () => {
   useEffect(() => {
     dispatch(getMovieList());
     dispatch(getCinemaList());
-  }, []);
+  }, [dispatch]);
 
   const handleChangeSelect = (
     evt: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<any>
