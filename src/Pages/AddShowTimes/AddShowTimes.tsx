@@ -17,7 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ShowTimeAdd } from "Interfaces/Movie";
 import { FieldErrors, useForm } from "react-hook-form";
-import { getMovieList } from "Slices/MovieSlice";
+import { getMovieList } from "Slices/movieSlice";
 import { addShowTimeCinema, getCinemaInfo, getCinemaList } from "Slices/cinema";
 import { TheaterList } from "Interfaces/Cinema";
 import dayjs from "dayjs";

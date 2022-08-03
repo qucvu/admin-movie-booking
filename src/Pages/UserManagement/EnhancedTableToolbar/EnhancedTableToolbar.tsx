@@ -12,7 +12,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { alpha } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "configStore";
-import { deleteUser, handleSearch } from "Slices/UserSlice";
+import { deleteUser, handleSearch } from "Slices/userSlice";
 import Swal from "sweetalert2";
 import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
 import { ChangeEvent, useEffect, useRef, useState } from "react";

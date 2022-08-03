@@ -11,7 +11,7 @@ import {
 import { AppDispatch, RootState } from "configStore";
 import { useEffect, useState, MouseEvent, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getMovieList } from "Slices/MovieSlice";
+import { getMovieList } from "Slices/movieSlice";
 
 import EnhancedTableToolbar from "./EnhancedTableToolbar/EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead/EnhancedTableHead";

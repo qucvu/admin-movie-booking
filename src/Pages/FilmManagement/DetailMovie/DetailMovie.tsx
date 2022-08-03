@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "configStore";
 import { useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getMovieInfo } from "Slices/MovieSlice";
+import { getMovieInfo } from "Slices/movieSlice";
 
 import DetailContent from "./DetailContent";
 import DetailImg from "./DetailImg";
