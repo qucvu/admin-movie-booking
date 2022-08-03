@@ -5,6 +5,8 @@ import {
   Typography,
   Stack,
   MenuItem,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import { AppDispatch, RootState } from "configStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,6 +19,10 @@ import { putUpdateUser } from "Slices/userSlice";
 import Swal from "sweetalert2";
 import { makeStyles } from "@mui/styles";
 import SweetAlertConfirm from "Components/SweetAlert/SweetAlertConfirm";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { handleMouseDownPassword } from "Pages/Login/Login";
+
 type Props = {};
 
 const useStyles = makeStyles(() => ({
@@ -62,6 +68,7 @@ const InfoUser = (props: Props) => {
   const [openSuccess, setOpenSuccess] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
   const [readOnly, setReadOnly] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [currentValue, setCurrentValue] = useState(() =>
     user ? user.maLoaiNguoiDung : "KhachHang"
   );
@@ -213,12 +220,23 @@ const InfoUser = (props: Props) => {
           required
           fullWidth
           label="Mật khẩu"
-          type="password"
+          type={showPassword ? "text" : "password"}
           id="password"
           color={errors.matKhau && "warning"}
           {...register("matKhau")}
           InputProps={{
             readOnly: readOnly,
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </IconButton>
+              </InputAdornment>
+            ),
           }}
         />
         {errors.matKhau && (

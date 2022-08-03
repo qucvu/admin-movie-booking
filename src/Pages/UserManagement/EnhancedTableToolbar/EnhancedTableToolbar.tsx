@@ -125,7 +125,7 @@ const EnhancedTableToolbar = ({ numSelected, selected }: Props) => {
         >
           <InputBase
             sx={{ ml: 1, flex: 1 }}
-            placeholder="Search Users"
+            placeholder="Tìm kiếm người dùng"
             {...register("searchText", {
               onChange: (event: ChangeEvent<HTMLInputElement>) => {
                 handleSearchText(event);

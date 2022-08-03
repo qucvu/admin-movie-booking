@@ -26,6 +26,7 @@ import { AppDispatch, RootState } from "configStore";
 import { addUser } from "Slices/userSlice";
 import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
 import SweetAlertError from "Components/SweetAlert/SweetAlertError";
+import { handleMouseDownPassword } from "Pages/Login/Login";
 type Props = {};
 
 const Title = styled.h1`
@@ -37,11 +38,6 @@ export const SpanError = styled.p`
   margin: -0.3rem 0.2rem 0;
   font-size: 0.75rem;
 `;
-export const handleMouseDownPassword = (
-  event: React.MouseEvent<HTMLButtonElement>
-) => {
-  event.preventDefault();
-};
 
 const AddUser = (props: Props) => {
   const [showPassword, setShowPassword] = useState(false);
