@@ -1,5 +1,5 @@
 import { LoginValues } from "Interfaces/Login";
-import { User, UserRegister } from "Interfaces/User";
+import { User, UserRegister, RegisterValues } from "Interfaces/User";
 
 import axiosClient from "./axiosClient";
 
@@ -21,12 +21,11 @@ const userAPI = {
       },
     });
   },
+
   getUserInfo: (taiKhoan: string) => {
-    return axiosClient.post<User>(`QuanLyNguoiDung/LayThongTinNguoiDung`, {
-      params: {
-        taiKhoan: taiKhoan,
-      },
-    });
+    return axiosClient.post<any>(
+      `QuanLyNguoiDung/LayThongTinNguoiDung?=${taiKhoan}`
+    );
   },
 
   deleteUser: (TaiKhoan: string) => {
@@ -36,11 +35,8 @@ const userAPI = {
       },
     });
   },
-  postUserInfo: () => {
-    return axiosClient.post(`QuanLyNguoiDung/ThongTinTaiKhoan`);
-  },
-  putUpdateUser: (payload: UserRegister, maNhom: string = "GP01") => {
-    return axiosClient.put(`QuanLyNguoiDung/CapNhatThongTinNguoiDung`, {
+  putUpdateUser: (payload: RegisterValues, maNhom: string = "GP01") => {
+    return axiosClient.post(`QuanLyNguoiDung/CapNhatThongTinNguoiDung`, {
       ...payload,
       maNhom: maNhom,
     });

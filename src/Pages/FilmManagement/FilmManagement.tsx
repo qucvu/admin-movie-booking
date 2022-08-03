@@ -26,7 +26,7 @@ type Order = "asc" | "desc";
 
 const FilmManagement = (props: Props) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { movieList, isMovieList, searchList } = useSelector(
+  const { movieList, isMovieList, searchList, searchText } = useSelector(
     (state: RootState) => state.movieSlice
   );
   let _movieList: Movie[] | null = [];
@@ -35,6 +35,7 @@ const FilmManagement = (props: Props) => {
     dispatch(getMovieList());
     return () => {};
   }, [dispatch]);
+
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Movie>("maPhim");
   const [selected, setSelected] = useState<string[]>([]);
@@ -42,7 +43,7 @@ const FilmManagement = (props: Props) => {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  if (searchList.length) {
+  if (searchList && searchText !== "") {
     _movieList = searchList;
   } else _movieList = movieList;
   if (isMovieList) {

@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { User, UserRegister } from "Interfaces/User";
+import { User, UserRegister, InfoUser, RegisterValues } from "Interfaces/User";
 import userAPI from "Services/userAPI";
 
 interface State {
   userList: User[] | null;
   isUserListLoading: boolean;
   userListError: string | null;
-  user: User | null;
+  user: InfoUser | null;
   isUserLoading: boolean;
   userError: string | null;
   searchText: string | undefined;
@@ -73,6 +73,18 @@ export const deleteUser = createAsyncThunk(
   }
 );
 
+export const putUpdateUser = createAsyncThunk(
+  `auth/update`,
+  async (payload: RegisterValues) => {
+    try {
+      const data = await userAPI.putUpdateUser(payload);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -108,7 +120,6 @@ const userSlice = createSlice({
       state.isUserLoading = false;
       state.userError = error as any;
     });
-
     //-----------------------------------------------
     builder.addCase(addUser.fulfilled, (state, { payload }) => {
       state.userRegister = payload;

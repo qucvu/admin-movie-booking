@@ -129,7 +129,7 @@ const EnhancedTableBody = (props: Props) => {
                   <Button
                     variant="contained"
                     size="small"
-                    onClick={() => navigate(`/detail/${row.maPhim}`)}
+                    onClick={() => navigate(`/detail/movie/${row.maPhim}`)}
                     sx={{ fontSize: { xs: "0.7rem", md: "0.8rem" } }}
                   >
                     Chi tiết
