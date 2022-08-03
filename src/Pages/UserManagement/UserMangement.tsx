@@ -11,11 +11,10 @@ import {
 import { AppDispatch, RootState } from "configStore";
 import { useEffect, useState, MouseEvent, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserList } from "Slices/userSlice";
+import { getUserList } from "Slices/UserSlice";
 
 import EnhancedTableToolbar from "./EnhancedTableToolbar/EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead/EnhancedTableHead";
-import LoadingLazy from "Components/LoadingLazy/LoadingLazy";
 
 import { User } from "Interfaces/User";
 
@@ -33,7 +32,7 @@ const UserMangement = (props: Props) => {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const dispatch = useDispatch<AppDispatch>();
-  const { userList, isUserListLoading, searchText } = useSelector(
+  const { userList, searchText } = useSelector(
     (state: RootState) => state.userSlice
   );
 

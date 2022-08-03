@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { RegisterValues } from "Interfaces/User";
 import { schemaRegister } from "./schemaRegister";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { putUpdateUser } from "Slices/userSlice";
+import { putUpdateUser } from "Slices/UserSlice";
 import Swal from "sweetalert2";
 import { makeStyles } from "@mui/styles";
 import SweetAlertConfirm from "Components/SweetAlert/SweetAlertConfirm";

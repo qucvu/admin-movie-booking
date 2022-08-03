@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "configStore";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getUserInfo } from "Slices/userSlice";
+import { getUserInfo } from "Slices/UserSlice";
 import AvatarUser from "./AvatarUser";
 import InfoBooking from "./InfoBooking";
 import InfoUser from "./InfoUser";

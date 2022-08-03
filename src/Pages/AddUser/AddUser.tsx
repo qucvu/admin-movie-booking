@@ -23,7 +23,7 @@ import schemaUser from "./schemaAddUser";
 import { UserRegister } from "Interfaces/User";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
-import { addUser } from "Slices/userSlice";
+import { addUser } from "Slices/UserSlice";
 import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
 import SweetAlertError from "Components/SweetAlert/SweetAlertError";
 import { handleMouseDownPassword } from "Pages/Login/Login";

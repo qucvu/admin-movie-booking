@@ -11,14 +11,13 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
-  Typography,
 } from "@mui/material";
 import { AppDispatch, RootState } from "configStore";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ShowTimeAdd } from "Interfaces/Movie";
 import { FieldErrors, useForm } from "react-hook-form";
-import { getMovieList } from "Slices/movieSlice";
+import { getMovieList } from "Slices/MovieSlice";
 import { addShowTimeCinema, getCinemaInfo, getCinemaList } from "Slices/cinema";
 import { TheaterList } from "Interfaces/Cinema";
 import dayjs from "dayjs";
@@ -87,7 +86,7 @@ const AddShowTimes = () => {
   useEffect(() => {
     dispatch(getMovieList());
     dispatch(getCinemaList());
-  }, []);
+  }, [dispatch]);
 
   const handleChangeSelect = (
     evt: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<any>

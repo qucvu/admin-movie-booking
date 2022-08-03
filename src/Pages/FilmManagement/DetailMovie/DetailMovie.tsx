@@ -1,10 +1,10 @@
-import { Container, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import LoadingLazy from "Components/LoadingLazy/LoadingLazy";
 import { AppDispatch, RootState } from "configStore";
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getMovieInfo } from "Slices/movieSlice";
+import { getMovieInfo } from "Slices/MovieSlice";
 
 import DetailContent from "./DetailContent";
 import DetailImg from "./DetailImg";

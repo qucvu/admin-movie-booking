@@ -12,7 +12,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { alpha } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "configStore";
-import { deleteMovie, handleSearchMovie } from "Slices/movieSlice";
+import { deleteMovie, handleSearchMovie } from "Slices/MovieSlice";
 import Swal from "sweetalert2";
 import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
 import { ChangeEvent, useRef, useState } from "react";

@@ -13,7 +13,7 @@ import { AppDispatch, RootState } from "configStore";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { getSrcPreview, updateMovie } from "Slices/movieSlice";
+import { getSrcPreview, updateMovie } from "Slices/MovieSlice";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 import schemaAddMovie from "Pages/AddMovies/schemaMovie";

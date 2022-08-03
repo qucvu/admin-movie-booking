@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import auth from "Slices/auth";
-import movieSlice from "Slices/movieSlice";
-import userSlice from "Slices/userSlice";
+import movieSlice from "Slices/MovieSlice";
+import userSlice from "Slices/UserSlice";
 import cinema from "Slices/cinema";
 const store = configureStore({
   reducer: {

@@ -22,7 +22,7 @@ import schemaAddMovie from "./schemaMovie";
 import { SpanError } from "../AddUser/AddUser";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "configStore";
-import { addMovie } from "Slices/movieSlice";
+import { addMovie } from "Slices/MovieSlice";
 import SweetAlertSuccess from "Components/SweetAlert/SweetAlertSuccess";
 import SweetAlertError from "Components/SweetAlert/SweetAlertError";
 
