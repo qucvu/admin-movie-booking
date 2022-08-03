@@ -28,6 +28,7 @@ const userAPI = {
       },
     });
   },
+
   deleteUser: (TaiKhoan: string) => {
     return axiosClient.delete(`QuanLyNguoiDung/XoaNguoiDung`, {
       params: {
